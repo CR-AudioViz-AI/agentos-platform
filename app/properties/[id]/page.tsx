@@ -67,7 +67,15 @@ export default function PropertyDetailPage() {
   const [downPayment, setDownPayment] = useState(20);
 
   // Contact form state
-  const [contactForm, setContactForm] = useState({
+  interface ContactForm {
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+    preferredContact: string;
+  }
+  
+  const [contactForm, setContactForm] = useState<ContactForm>({
     name: '',
     email: '',
     phone: '',
@@ -137,7 +145,7 @@ export default function PropertyDetailPage() {
     return monthlyPayment;
   };
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
