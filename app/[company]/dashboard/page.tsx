@@ -138,6 +138,12 @@ export default function AgentDashboard() {
         return;
       }
 
+      if (!userProfile.company_id) {
+        console.error('User has no company association');
+        setLoading(false);
+        return;
+      }
+
       // Load properties
       const { data: propertiesData } = await supabase
         .from('properties')
@@ -182,11 +188,22 @@ export default function AgentDashboard() {
     
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        alert('Please log in to add properties.');
+        return;
+      }
+      
       const { data: userProfile } = await supabase
         .from('users')
         .select('company_id')
         .eq('id', user.id)
         .single();
+
+      if (!userProfile) {
+        alert('User profile not found.');
+        return;
+      }
 
       const { error } = await supabase
         .from('properties')
