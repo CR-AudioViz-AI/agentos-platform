@@ -288,7 +288,7 @@ export default function AgentDashboard() {
   };
 
   const getLeadStatusColor = (status: string): string => {
-    const colors = {
+    const colors: Record<string, string> = {
       new: 'bg-blue-100 text-blue-800',
       contacted: 'bg-yellow-100 text-yellow-800',
       qualified: 'bg-purple-100 text-purple-800',
