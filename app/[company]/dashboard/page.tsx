@@ -231,7 +231,7 @@ export default function AgentDashboard() {
     }
   };
 
-  const handleDeleteProperty = async (propertyId) => {
+  const handleDeleteProperty = async (propertyId: string) => {
     if (!confirm('Are you sure you want to delete this property?')) return;
 
     try {
