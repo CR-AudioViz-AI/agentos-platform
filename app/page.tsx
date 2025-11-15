@@ -23,12 +23,21 @@ interface Property {
   description: string;
 }
 
+interface Filters {
+  minPrice: string;
+  maxPrice: string;
+  bedrooms: string;
+  bathrooms: string;
+  propertyType: string;
+  listingType: string;
+}
+
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     minPrice: '',
     maxPrice: '',
     bedrooms: '',
@@ -101,7 +110,7 @@ export default function HomePage() {
     });
   };
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
