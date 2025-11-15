@@ -9,13 +9,76 @@ import {
   Mail, Phone, Clock, Star, Filter, Search, X, Upload, Image as ImageIcon
 } from 'lucide-react';
 
+interface Property {
+  id: string;
+  company_id: string;
+  listing_agent_id?: string;
+  title: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  price: number;
+  bedrooms: number;
+  bathrooms: number;
+  square_feet: number;
+  property_type: string;
+  listing_type: string;
+  status: string;
+  description?: string;
+  features?: string[];
+  images?: string[];
+  created_at: string;
+}
+
+interface Lead {
+  id: string;
+  company_id: string;
+  assigned_agent_id?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone?: string;
+  source: string;
+  status: string;
+  lead_type?: string;
+  notes?: string;
+  created_at: string;
+}
+
+interface Stats {
+  totalProperties: number;
+  activeListings: number;
+  totalLeads: number;
+  newLeads: number;
+  totalValue: number;
+  monthlyRevenue: number;
+}
+
+interface PropertyForm {
+  title: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  price: string;
+  bedrooms: string;
+  bathrooms: string;
+  square_feet: string;
+  property_type: string;
+  listing_type: string;
+  description: string;
+  features: string[];
+  images: string[];
+}
+
 export default function AgentDashboard() {
   const params = useParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
-  const [properties, setProperties] = useState([]);
-  const [leads, setLeads] = useState([]);
-  const [stats, setStats] = useState({
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [stats, setStats] = useState<Stats>({
     totalProperties: 0,
     activeListings: 0,
     totalLeads: 0,
@@ -25,11 +88,11 @@ export default function AgentDashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [showAddProperty, setShowAddProperty] = useState(false);
-  const [editingProperty, setEditingProperty] = useState(null);
+  const [editingProperty, setEditingProperty] = useState<Property | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   
   // Property form state
-  const [propertyForm, setPropertyForm] = useState({
+  const [propertyForm, setPropertyForm] = useState<PropertyForm>({
     title: '',
     address: '',
     city: '',
@@ -114,7 +177,7 @@ export default function AgentDashboard() {
     }
   };
 
-  const handleAddProperty = async (e) => {
+  const handleAddProperty = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     try {
@@ -190,7 +253,7 @@ export default function AgentDashboard() {
     setEditingProperty(null);
   };
 
-  const formatPrice = (price) => {
+  const formatPrice = (price: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -199,7 +262,7 @@ export default function AgentDashboard() {
     }).format(price);
   };
 
-  const formatDate = (date) => {
+  const formatDate = (date: string): string => {
     return new Date(date).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -207,7 +270,7 @@ export default function AgentDashboard() {
     });
   };
 
-  const getLeadStatusColor = (status) => {
+  const getLeadStatusColor = (status: string): string => {
     const colors = {
       new: 'bg-blue-100 text-blue-800',
       contacted: 'bg-yellow-100 text-yellow-800',
