@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import { Search, Home, Heart, FileText, MessageCircle, Bed, Bath } from 'lucide-react';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ export default function CustomerPortal() {
   const [properties, setProperties] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     loadProperties();
