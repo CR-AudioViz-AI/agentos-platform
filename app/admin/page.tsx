@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import { Users, Building2, DollarSign, TrendingUp, Activity, Home } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ orgs: 0, agents: 0, mrr: 0, properties: 0 });
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     loadStats();
