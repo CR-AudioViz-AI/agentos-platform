@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
 import {
   Home, Users, TrendingUp, Calendar, MessageSquare, Settings, PlusCircle,
@@ -109,7 +109,7 @@ export default function AgentDashboard() {
     images: []
   });
 
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const companySlug = params.company;
 
   useEffect(() => {
