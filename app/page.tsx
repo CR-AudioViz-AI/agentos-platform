@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import { Search, MapPin, Bed, Bath, Square, DollarSign, Heart, Filter, Map, Grid3x3, ChevronDown } from 'lucide-react';
 
@@ -48,7 +48,7 @@ export default function HomePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     loadProperties();
