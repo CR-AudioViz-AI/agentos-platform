@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { Database } from '@/types/supabase';
 import { Calendar, Clock, Plus, Trash2, Save, Loader2 } from 'lucide-react';
 
 interface TimeSlot {
